@@ -1,0 +1,56 @@
+{
+  "name": "persistme",
+  "version": "1.0.0",
+  "description": "localStorage on steroids 💉",
+  "main": "lib/persistme.js",
+  "scripts": {
+    "start": "parcel ./examples/app.1.html",
+    "build": "webpack --mode=none && webpack --mode=production",
+    "dev": "webpack --progress --colors --watch --mode=none",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesmerised/persistme.git"
+  },
+  "keywords": [
+    "localstorage",
+    "webstorage",
+    "compression",
+    "namespace"
+  ],
+  "author": "Emad Alam <emad.alam@yahoo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mesmerised/persistme/issues"
+  },
+  "homepage": "https://github.com/mesmerised/persistme#readme",
+  "dependencies": {
+    "lodash.merge": "^4.6.1",
+    "lz-string": "^1.4.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.3",
+    "parcel-bundler": "^1.7.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15",
+    "yargs": "^11.0.0"
+  }
+}

@@ -1,0 +1,23 @@
+section {
+    padding: 8px;
+}
+
+form, .preview {
+    padding: 8px;
+    border: 1px solid #000;
+    width: 420px;
+    display: inline-block;
+    margin: 8px;
+    height: 320px;
+    overflow: auto;
+}
+
+label {
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+input {
+    padding: 8px;
+    font-size: 12px;
+}

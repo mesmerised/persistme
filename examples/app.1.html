@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Examples - persistme</title>
+    <link rel="stylesheet" href="./main.css">
+    <script>
+        // usage of global window object is just for demo
+        // in order to initialize multiple different versions
+        // of the same app with multiple different storages
+        // all of which would be using the same `localStorage` keys
+        // in order to demonstrate how `persistme` provides app namespace
+        window.__appName = 'MY_AWESOME_APP1';
+    </script>
+</head>
+
+<body>
+    <a href="./app.1.html">Application 1</a> <br />
+    <a href="./app.2.html">Application 2</a>
+    <div id="root"></div>
+    <script src="./app.jsx"></script>
+</body>
+
+</html>
