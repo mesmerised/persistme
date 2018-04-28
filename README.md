@@ -160,7 +160,7 @@ Completely removes the given key(s) and the associated data from the storage.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
-| `keys` | `String|Array<String>` | yes | The item key(s) to remove |
+| `keys` | `String`, `Array<String>` | yes | The item key(s) to remove |
 
 ## Caveats
 
