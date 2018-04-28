@@ -62,7 +62,7 @@ export default class Storage {
 
         // return default value
         if (!isValid(item)) {
-            const { defaults } = _options.get(this);
+            const { defaults = {} } = _options.get(this);
             return defaults[key];
         }
 
