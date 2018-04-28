@@ -2,9 +2,9 @@
 
 localStorage on steroids 💉
 
-`persistme` lets you namespace your `localStorage` usage across multiple applications hosted on the same domain. Store and retrieve data from different apps without worrying about clashes and accidental overrides of the localStorage properties. Besides solving the namespace problem, it also comes with some nice goodies.
+`persistme` lets you namespace your `localStorage` across multiple applications even when they are hosted on the same domain. Store and retrieve data from different apps without worrying about name clashes and accidental overrides of the localStorage properties. Besides solving the namespace problem, it also comes with some nice goodies.
 
-- Namespace apps' `localStorage` usage on same domain
+- Namespace multiple apps `localStorage` usage on the same domain
 - Store/retrieve any primitive data types in their exact format -- `string`, `boolean`, `number`, `object` and `array`
 - Uses LZ-based compression algorithm so you can squeeze more data in the given [localStorage data limit](https://www.html5rocks.com/en/tutorials/offline/quota-research/)
 - Neat APIs and sugars with default fallbacks
@@ -17,9 +17,9 @@ npm install --save persistme
 ```
 
 ## Usage Examples
+Check out the [examples](./examples/) folder for some rudimentary multi-application setups.
 
 #### Basic Usage
-
 ```js
 import { createStorage } from 'persistme';
 
@@ -37,7 +37,6 @@ MyApp2Storage.get('user'); // Amina Dropic
 ```
 
 #### Fallback Values
-
 ```js
 import { createStorage } from 'persistme';
 
@@ -59,7 +58,6 @@ MyApp2Storage.get('user'); // Amina Dropic
 ```
 
 #### Update Existing Values
-
 ```js
 import { createStorage } from 'persistme';
 
@@ -80,7 +78,6 @@ MyApp2Storage.get('addr'); // {street: 'X Street', city: 'Berlin', country: 'DE'
 ```
 
 #### Settings Factory
-
 ```js
 import { createStorage, createSetting } from 'persistme';
 
@@ -112,34 +109,34 @@ UserSettings.showSomethingElse // true
 #### Factories
 
 #### `createStorage(appName, defaults)`: `Storage Instance`
-Returns the storage instance that has methods for `set`, `get`, `update` and `remove` operations on the localStorage.
+Returns the storage instance that has methods for `set`, `get`, `update` and `remove` operations on the application specific `localStorage`.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
-| `appName` | `String` | yes | Name of the storage. |
-| `defaults` | `Object` | optional | Map of fallback values. |
+| `appName` | `String` | yes | Name of the storage |
+| `defaults` | `Object` | optional | Map of fallback values |
 
 #### `createSetting(options)`: `Proxy Object`
-Returns the proxy object that can be used to retrieve data from the localStorage using simple object dot notation.
+Returns the proxy object that can be used to retrieve data from a previously created, application `localStorage` using simple object dot notation.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
-| `options` | `Object` |  | Options for the settings proxy (see below).
+| `options` | `Object` |  | Options for the settings proxy (see below)
 | `options.storage` | `Object` | yes | Storage object that implements the `get` and `set` methods. Ideally you would just pass the previously created storage instance returned by the `createStorage` factory. |
-| `options.defaults` | `Object` | optional | Map of fallback values. |
+| `options.defaults` | `Object` | optional | Map of fallback values |
 | `options.configs` | `Object` | optional | Map of key configurations that will be used by the storage API while generating the item key. Defaults to the key used by the settings object to access the data. |
 
 #### Storage instance methods
 
 #### `get(key)`: `Mixed`
-Returns the data stored for that key, falls back to the default value if provided by the `defaults` config. Decompresses the data after retrieving from the localStorage.
+Returns the app specific data stored for the given key, falls back to the default value if provided by the app specific `defaults` config map. Decompresses the data after retrieving from the `localStorage`.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
 | `key` | `String` | yes | The item key |
 
 #### `set(key, value)`
-Stores the data for the given key, compresses the data before storing in the localStorage.
+Stores the app specific data for the given key, compresses the data before storing in the `localStorage`.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
@@ -147,7 +144,7 @@ Stores the data for the given key, compresses the data before storing in the loc
 | `value` | `Mixed` | yes | The data to store |
 
 #### `update(key, value)`
-Similar to `set` method, but extends (deep merges objects) the original stored value if it is of type array or object.
+Similar to `set` method, but extends (deep merges objects) the original stored value if it is one of type array or object.
 Note: The type of both stored as well as provided value should match in order for the update to work. Also the value should exist initially to begin with, otherwise the behavior is equivalent to `set` method.
 
 | param  | type  | required | description |
@@ -156,18 +153,30 @@ Note: The type of both stored as well as provided value should match in order fo
 | `value` | `Mixed` | yes | The data to update |
 
 #### `remove(keys)`
-Completely removes the given key(s) and the associated data from the storage.
+Completely removes the given key(s) and the associated app specific data from the `localStorage`.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
 | `keys` | `String`, `Array<String>` | yes | The item key(s) to remove |
 
-## Caveats
+#### `getKey(key)`
+Returns the final namespaced property name that would be used in lieu of the given key for storing the app specific data in the `localStorage`.
 
-The library uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) for its core implementations. If you plan to use this library on browsers that do not yet support these features, please also include polyfills for those browsers.
+| param  | type  | required | description |
+| ------ | ----- | -------- | ----------- |
+| `key` | `String` | yes | The actual item key |
+
+## Caveats
+This library uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) for its core implementations. If you plan to use this library on browsers that do not yet support these features, please also consider including polyfills for those browsers.
 
 - [WeakMap polyfill](https://github.com/polygonplanet/weakmap-polyfill)
 - [Proxy polyfill](https://github.com/GoogleChrome/proxy-polyfill)
+
+## Who's using it
+- [atvjs](https://github.com/emadalam/atvjs) - Blazing fast Apple TV application development using pure JavaScript
+- [mesmerized](https://mesmerized.me/) - Transform your browser tabs
+
+Built something cool using this? Submit a PR to add it to this section.
 
 ## Contributions
 - Fork the project
@@ -182,4 +191,4 @@ npm run test    # run tests
 ```
 
 ## License
-persistme is licensed under the [MIT License](https://opensource.org/licenses/MIT)
+`persistme` is licensed under the [MIT License](https://opensource.org/licenses/MIT)
