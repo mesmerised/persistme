@@ -17,7 +17,9 @@
     "localstorage",
     "webstorage",
     "compression",
-    "namespace"
+    "namespace",
+    "utilities",
+    "javascript"
   ],
   "author": "Emad Alam <emad.alam@yahoo.com>",
   "license": "MIT",
@@ -26,7 +28,6 @@
   },
   "homepage": "https://github.com/mesmerised/persistme#readme",
   "dependencies": {
-    "lodash.merge": "^4.6.1",
     "lz-string": "^1.4.4"
   },
   "devDependencies": {

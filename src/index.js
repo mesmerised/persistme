@@ -38,4 +38,8 @@ export function createStorage(appName, defaults) {
     return new Storage({ appName, defaults });
 }
 
+// export settings factory
 export { default as createSetting } from './settings.factory';
+
+// export the LZString compression library
+export { default as LZString } from 'lz-string';

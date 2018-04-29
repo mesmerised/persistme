@@ -43,7 +43,7 @@ const config = {
         extensions: ['.json', '.js'],
     },
     plugins: [
-        new webpack.BannerPlugin('Copyright (c) Emad Alam http://emad.in\nhttps://github.com/mesmerised/persistme'),
+        new webpack.BannerPlugin('Copyright (c) Emad Alam https://emad.in\nhttps://github.com/mesmerised/persistme'),
     ],
 };
 

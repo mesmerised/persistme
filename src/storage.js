@@ -1,5 +1,4 @@
 import LZString from 'lz-string';
-import merge from 'lodash.merge';
 import { isValid } from './utils';
 
 const { compress, decompress } = LZString;
@@ -79,13 +78,13 @@ export default class Storage {
     }
 
     /**
-     * Similar to `set` method, but extends (deep merge objects) the
+     * Similar to `set` method, but extends (shallow merges) the
      * original stored value if it is of type array or object.
      *
      * Note: The type of both stored as well as provided value
      * should match in order for the update to work. Also
-     * the value should exist initially to begin with
-     * Otherwise the behavior is equivalent to `set` method.
+     * the value should exist initially, otherwise the
+     * behavior is equivalent to `set` method.
      *
      * @param {String} key  Storage key
      * @param {Mixed} value   Value to update
@@ -101,7 +100,7 @@ export default class Storage {
             this.set(key, [...existingVal, ...value]);
         } else if (typeof existingVal === 'object' && typeof val === 'object') {
             // is an object, extend original and set
-            this.set(key, merge(existingVal, value));
+            this.set(key, { ...existingVal, ...value });
         } else {
             // incompatible or other primitive values, use normal set
             this.set(key, value);

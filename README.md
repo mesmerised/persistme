@@ -144,8 +144,9 @@ Stores the app specific data for the given key, compresses the data before stori
 | `value` | `Mixed` | yes | The data to store |
 
 #### `update(key, value)`
-Similar to `set` method, but extends (deep merges objects) the original stored value if it is one of type array or object.
-Note: The type of both stored as well as provided value should match in order for the update to work. Also the value should exist initially to begin with, otherwise the behavior is equivalent to `set` method.
+Similar to `set` method, but extends (shallow merges) the original stored value if it is one of type array or object.
+
+_Note: The data type of both stored as well as provided value should match in order for the update to work. Also the value should initially exist, otherwise the behavior is equivalent to `set` method._
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
@@ -159,12 +160,28 @@ Completely removes the given key(s) and the associated app specific data from th
 | ------ | ----- | -------- | ----------- |
 | `keys` | `String`, `Array<String>` | yes | The item key(s) to remove |
 
-#### `getKey(key)`
+#### `getKey(key)`: `String`
 Returns the final namespaced property name that would be used in lieu of the given key for storing the app specific data in the `localStorage`.
 
 | param  | type  | required | description |
 | ------ | ----- | -------- | ----------- |
 | `key` | `String` | yes | The actual item key |
+
+#### LZString compression
+The original [lz-string](https://github.com/pieroxy/lz-string) compression library instance is exported as `LZString`. Refer to the original [source docs](http://pieroxy.net/blog/pages/lz-string/index.html) for the available methods of the source library.
+
+```js
+import { LZString } from 'persistme';
+// or, if including directly from script tag
+// const LZString = persistme.LZString
+
+const { compress, decompress } = LZString;
+
+const str = 'I am a very huge string data...';
+const compressedValue = compress(str); // compressed string
+
+console.log(decompress(compressedValue)); // I am a very huge string data...
+```
 
 ## Caveats
 This library uses [`WeakMap`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap) and [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) for its core implementations. If you plan to use this library on browsers that do not yet support these features, please also consider including polyfills for those browsers.
