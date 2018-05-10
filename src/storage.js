@@ -95,10 +95,12 @@ export default class Storage {
         // not present yet in storage, store
         if (!isValid(existingVal)) {
             this.set(key, value);
-        } else if (Array.isArray(existingVal) && Array.isArray(value)) {
+        } else if (Array.isArray(existingVal)
+            && Array.isArray(value)) {
             // is an array, extend original and set
             this.set(key, [...existingVal, ...value]);
-        } else if (typeof existingVal === 'object' && typeof val === 'object') {
+        } else if (typeof existingVal === 'object'
+            && typeof value === 'object') {
             // is an object, extend original and set
             this.set(key, { ...existingVal, ...value });
         } else {
